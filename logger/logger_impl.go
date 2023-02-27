@@ -5,7 +5,7 @@ import (
 	"runtime"
 	"strings"
 
-	"bitbucket.org/ayopop/ct-logger/constant"
+	"github.com/RyaWcksn/logging/constant"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -39,17 +39,17 @@ func (l *Logger) Debug(msg string) {
 			zap.String("service", l.service),
 			zap.String("env", l.env),
 			zap.String("file", debugInfo.fileName),
-			zap.String("function", debug.function),
-			zap.Int("line", runtime.line),
+			zap.String("function", debugInfo.function),
+			zap.Int("line", debugInfo.line),
 		)
 	} else {
 		l.log.Info(
 			msg,
 			zap.String("service", l.service),
 			zap.String("env", l.env),
-			zap.String("file", runtime.fileName),
-			zap.String("function", runtime.function),
-			zap.Int("line", runtime.line),
+			zap.String("file", debugInfo.fileName),
+			zap.String("function", debugInfo.function),
+			zap.Int("line", debugInfo.line),
 		)
 	}
 }

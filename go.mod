@@ -1,4 +1,4 @@
-module bitbucket.org/ayopop/ct-logger
+module github.com/RyaWcksn/logging
 
 go 1.19
 

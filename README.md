@@ -13,7 +13,7 @@ The log package, it's wrap the [Zap](https://github.com/uber/zap) package and pr
 package main
 
 import (
-	"bitbucket.org/ayopop/ct-logger/logger"
+	"github.com/RyaWcksn/logging/logger"
 )
 
 func main(){
@@ -101,59 +101,3 @@ _Fatalf_
 log.Fatalf("This is %s level", "fatalf")
 ```
 
-## Tracer
-
-​The tracing package. it integrates the [Opentelemetry](https://opentelemetry.io/) and Google Cloud Trace. this package provides the interface to create a new tracer and log exporter to logging the tracing data to logger output​
-
-### How to integrate
-
-```bash
-GOOGLE_APPLICATION_CREDENTIALS="path to json file that contains service account key for authentication"
-```
-
-```go
-import (
-    "bitbucket.org/ayopop/ct-logger/logger"
-    "bitbucket.org/ayopop/ct-logger/tracer"
-)
-​
-func main() {
-    // tracerEnable enable goodle cloud trace or not
-    tracerEnable := true
-    // projectID the google cloud project id, if tracerEnable = true then we must set this id to export tracing to google cloud trace
-    projectID := "abc"
-    // traceName 
-    traceName := "ct-service"
-
-    tracer.New(tracerEnable, projectID, traceName, l)
-    defer tracer.Shutdown()
-
-}
-​
-func SomeHandle(ctx context.Context)  {
-    childCtx, span := tracer.StartSpan(ctx, "SomeHandle")
-    defer span.End()
-    // ...
-}
-```
-
-### Methods
-
-__StartSpan__ is use for starting span to trace the function and create the span
-
-```go
-tracer.StartSpan
-```
-
-__Shutdown__ is use for shutdown tracer package
-
-```go
-tracer.Shutdown
-```
-
-__SetSpanAttributes__ is use for set the span attribute
-
-```go
-tracer.SetSpanAttributes
-```
-# LogWrapper
